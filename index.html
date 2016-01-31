@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Do This Stuff</title>
+  </head>
+  <body>
+    <header>
+       <h1>Don't Not Do List</h1>
+    </header>
+    <main>
+      <input id="new-todo-input" type="text">
+      <ul id="todo-list"></ul>
+      <p id="counter">0</p>
+      <button type="button" id="randomizer">Can't Decide!</button>
+      <br>
+      <button type="button" id="clearAll">Clear All</button>
+    </main>
+      <script>
+        var todos = [];
+
+        var newTodoInput = document.getElementById('new-todo-input');
+        var todoList = document.getElementById('todo-list');
+
+        function renderTodos() {
+          todoList.innerHTML = todos.map(function(todo, index) {
+            return '<li class="item">' +
+              todo +
+              ' <button class="remove-todo" data-index="' + index + '">X</button>' +
+            '</li>';
+          }).join('');
+        }
+
+        newTodoInput.onkeypress = function(event) {
+          if (event.which === 13) {
+            todos.push(this.value);
+            this.value = '';
+            renderTodos();
+            countTodos();
+          }
+        };
+
+        todoList.onclick = function(event) {
+          var clickedElement = event.target;
+          if (clickedElement.className === 'remove-todo') {
+            todos.splice(clickedElement.dataset.index, 1);
+            renderTodos();
+            countTodos();
+          }
+        };
+
+        function countTodos() {
+          var count = document.querySelectorAll('.item').length;
+          document.getElementById("counter").innerHTML = count;
+        }
+
+        randomizer.onclick = function() {
+          var randomNumber = Math.floor(Math.random() * todos.length);
+          var randomItem = todos[randomNumber];
+          alert(randomItem);
+        };
+
+        clearAll.onclick = function() {
+          todos = [];
+          renderTodos();
+          countTodos();
+        };
+      </script>
+    </body>
+</html>
