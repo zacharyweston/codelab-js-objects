@@ -8,8 +8,8 @@
        <h1>Don't Not Do List</h1>
     </header>
     <main>
-      <input id="new-todo-input" type="text">
-      <ul id="todo-list"></ul>
+      <input id="newTodoInput" type="text">
+      <ul id="todoList"></ul>
       <p id="counter">0</p>
       <button type="button" id="randomizer">Can't Decide!</button>
       <br>
@@ -18,14 +18,14 @@
       <script>
         var todos = [];
 
-        var newTodoInput = document.getElementById('new-todo-input');
-        var todoList = document.getElementById('todo-list');
+        var newTodoInput = document.getElementById('newTodoInput');
+        var todoList = document.getElementById('todoList');
 
-        function renderTodos() {
+        function renderTodosCount() {
           todoList.innerHTML = todos.map(function(todo, index) {
             return '<li class="item">' +
               todo +
-              ' <button class="remove-todo" data-index="' + index + '">X</button>' +
+              ' <button class="removeTodo" data-index="' + index + '">X</button>' +
             '</li>';
           }).join('');
         }
@@ -34,35 +34,36 @@
           if (event.which === 13) {
             todos.push(this.value);
             this.value = '';
-            renderTodos();
-            countTodos();
+            renderAll();
           }
         };
 
         todoList.onclick = function(event) {
           var clickedElement = event.target;
-          if (clickedElement.className === 'remove-todo') {
+          if (clickedElement.className === 'removeTodo') {
             todos.splice(clickedElement.dataset.index, 1);
-            renderTodos();
-            countTodos();
+            renderAll();
           }
         };
 
-        function countTodos() {
-          var count = document.querySelectorAll('.item').length;
+        function renderTodos() {
+          var count = todos.length;
           document.getElementById("counter").innerHTML = count;
         }
 
-        randomizer.onclick = function() {
+        document.getElementById('randomizer').onclick = function() {
           var randomNumber = Math.floor(Math.random() * todos.length);
           var randomItem = todos[randomNumber];
           alert(randomItem);
         };
 
-        clearAll.onclick = function() {
+        document.getElementById('clearAll').onclick = function() {
           todos = [];
+          renderAll();
+        };
+        function renderAll() {
           renderTodos();
-          countTodos();
+          renderTodosCount();
         };
       </script>
     </body>
