@@ -16,12 +16,28 @@
       <button type="button" id="clearAll">Clear All</button>
     </main>
       <script>
+        // ------------
+        // GLOBAL STATE
+        // ------------
+
         var todos = [];
+
+        // --------
+        // ELEMENTS
+        // --------
 
         var newTodoInput = document.getElementById('newTodoInput');
         var todoList = document.getElementById('todoList');
+        var counter = document.getElementById("counter");
+        var randomizerButton = document.getElementById('randomizer');
+        var clearAllButton = document.getElementById('clearAll');
 
-        function renderTodosCount() {
+        // ---------
+        // RENDERERS
+        // ---------
+
+        // Renders list of todos items
+        function renderTodos() {
           todoList.innerHTML = todos.map(function(todo, index) {
             return '<li class="item">' +
               todo +
@@ -30,6 +46,36 @@
           }).join('');
         }
 
+        // Renders the current number of todos
+        function renderTodosCount() {
+          var count = todos.length;
+          counter.innerHTML = count;
+        }
+
+        // Renders the entire todo list
+        function renderAll() {
+          renderTodos();
+          renderTodosCount();
+        }
+
+        // ------
+        // EVENTS
+        // ------
+
+        // Displays a random todo item
+        randomizerButton.onclick = function() {
+          var randomNumber = Math.floor(Math.random() * todos.length);
+          var randomItem = todos[randomNumber];
+          alert(randomItem);
+        };
+
+        // Clears all todo items
+        clearAllButton.onclick = function() {
+          todos = [];
+          renderAll();
+        };
+
+        // Adds a new todo item
         newTodoInput.onkeypress = function(event) {
           if (event.which === 13) {
             todos.push(this.value);
@@ -38,32 +84,13 @@
           }
         };
 
+        // Deletes a todo item
         todoList.onclick = function(event) {
           var clickedElement = event.target;
           if (clickedElement.className === 'removeTodo') {
             todos.splice(clickedElement.dataset.index, 1);
             renderAll();
           }
-        };
-
-        function renderTodos() {
-          var count = todos.length;
-          document.getElementById("counter").innerHTML = count;
-        }
-
-        document.getElementById('randomizer').onclick = function() {
-          var randomNumber = Math.floor(Math.random() * todos.length);
-          var randomItem = todos[randomNumber];
-          alert(randomItem);
-        };
-
-        document.getElementById('clearAll').onclick = function() {
-          todos = [];
-          renderAll();
-        };
-        function renderAll() {
-          renderTodos();
-          renderTodosCount();
         };
       </script>
     </body>
