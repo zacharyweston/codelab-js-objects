@@ -18,7 +18,7 @@
       <button type="button" id="randomizer">Can't Decide!</button>
       <br>
       <button type="button" id="clearAll">Clear All</button>
-      <button type="button" id="clearCompleted">Clear Completed</button>
+      <button type"button" id="clearCompleted">Clear Completed</button>
     </main>
     <script>
       // ------------
@@ -30,7 +30,7 @@
       // --------
       var newTodoTitle = document.getElementById('newTodoTitle');
       var newTodoDescription = document.getElementById('newTodoDescription');
-      var newTodoSubmit = document.getElementById('newTodoSubmit');
+      var newTodoSubmit = document.getElementById('newTodoSubmit')
       var todoList = document.getElementById('todoList');
       var counter = document.getElementById("counter");
       var randomizerButton = document.getElementById('randomizer');
@@ -62,29 +62,23 @@
       // ------
       // EVENTS
       // ------
-
       // Displays a random todo item
       randomizerButton.onclick = function() {
         var randomNumber = Math.floor(Math.random() * todos.length);
         var randomItem = todos[randomNumber];
         alert(randomItem.title);
       };
-
       // Clears all todo items
       clearAllButton.onclick = function() {
         todos = [];
         renderAll();
       };
-
       // Clears completed todos
       clearCompleted.onclick = function() {
-        var newTodoArray = todos.filter(function(person) {
-          return person['isComplete'] === false;
+        var newTodos = todos.filter(function() {
+          return todos.isComplete === true;
         });
-        todos = newTodoArray;
-        renderAll();
-      };
-
+      }
       // Adds a new todo item
       newTodoSubmit.onclick = function(event) {
           todos.push({
@@ -96,7 +90,6 @@
           newTodoDescription.value = '';
           renderAll();
       };
-
       // Deletes a todo item
       todoList.onclick = function(event) {
         var clickedElement = event.target;
@@ -105,15 +98,15 @@
           todos.splice(clickedElement.dataset.index, 1);
           renderAll();
         }
-
+        
       // Checks/unchecks a todo item, changes isComplete status
         if (clickedElement.className === 'checkbox' && !clickedElement.checked === false) {
-          todos[indexNumber].isComplete = true;
+          todos[indexNumber].isComplete = true
         }
         if (clickedElement.className === 'checkbox' && !clickedElement.checked === true) {
-          todos[indexNumber].isComplete = false;
+          todos[indexNumber].isComplete = false
         }
-      };  
+      };
     </script>
   </body>
 </html>
