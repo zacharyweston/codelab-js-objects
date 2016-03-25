@@ -87,14 +87,14 @@
 
       // Adds a new todo item
       newTodoSubmit.onclick = function(event) {
-          todos.push({
-            title: newTodoTitle.value,
-            description: newTodoDescription.value,
-            isComplete: false
-          });
-          newTodoTitle.value = '';
-          newTodoDescription.value = '';
-          renderAll();
+        todos.push({
+          title: newTodoTitle.value,
+          description: newTodoDescription.value,
+          isComplete: false
+        });
+        newTodoTitle.value = '';
+        newTodoDescription.value = '';
+        renderAll();
       };
 
       // Deletes a todo item
@@ -102,18 +102,15 @@
         var clickedElement = event.target;
         var indexNumber = clickedElement.dataset.index;
         if (clickedElement.className === 'removeTodo') {
-          todos.splice(clickedElement.dataset.index, 1);
+          todos.splice(indexNumber, 1);
           renderAll();
         }
 
-      // Checks/unchecks a todo item, changes isComplete status
-        if (clickedElement.className === 'checkbox' && !clickedElement.checked === false) {
-          todos[indexNumber].isComplete = true;
+        // Checks/unchecks a todo item, changes isComplete status
+        if (clickedElement.className === 'checkbox') {
+          todos[indexNumber].isComplete = clickedElement.checked;
         }
-        if (clickedElement.className === 'checkbox' && !clickedElement.checked === true) {
-          todos[indexNumber].isComplete = false;
-        }
-      };  
+      };
     </script>
   </body>
 </html>
